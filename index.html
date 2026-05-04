@@ -510,7 +510,7 @@
 // ============================
 // CONFIG — GANTI SESUAI KAMU
 // ============================
-const ADMIN_EMAIL = 'ihsanhilmi.u@gmail.com'; // <-- ganti dengan email admin kamu
+const ADMIN_EMAIL = 'ihsanpunya@gmail.com'; // <-- ganti dengan email admin kamu
 
 // ============================
 // DATA STORE (localStorage)
@@ -524,9 +524,13 @@ const S = {
 // AUTH
 // ============================
 const getUsers    = () => S.get('dli_users', {});
-const getAllowed   = () => S.get('dli_allowed', {
-  [ADMIN_EMAIL]: 'admin',
-});
+const getAllowed   = () => {
+  const saved = S.get('dli_allowed', null);
+  if (saved) return saved;
+  const def = { [ADMIN_EMAIL]: 'admin' };
+  S.set('dli_allowed', def);
+  return def;
+};
 const getSession  = () => S.get('dli_session', null);
 const setSession  = (u) => S.set('dli_session', u);
 
